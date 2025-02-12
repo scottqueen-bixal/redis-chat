@@ -1,5 +1,6 @@
 <script lang="ts">
   import { useChat } from '@ai-sdk/svelte';
+  import Blob from '$lib/components/Blob.svelte';
 
   const { messages, input, handleSubmit } = useChat({ maxSteps: 5 });
 
@@ -18,6 +19,8 @@
 </script>
 
 <main>
+  <Blob />
+
   <ul>
     {#each $messages as message}
       <li>
@@ -37,3 +40,9 @@
     <button type="submit">Send</button>
   </form>
 </main>
+
+<style>
+  main {
+    padding: 2rem;
+  }
+</style>
