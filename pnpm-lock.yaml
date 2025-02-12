@@ -17,6 +17,9 @@ importers:
       ai:
         specifier: ^4.1.26
         version: 4.1.26(react@19.0.0)(zod@3.24.1)
+      p5-svelte:
+        specifier: ^3.1.2
+        version: 3.1.2(@types/p5@1.7.6)(p5@1.11.3)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -506,6 +509,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/p5@1.7.6':
+    resolution: {integrity: sha512-6pLTOo0V3N5jZb5nTwjiv3lPHLK3Z/TjbhQUj8CTWXocUk1Z/f6OHTp3Pcwi1BhWnf5gqKUcyEb1gP0KIJuQgw==}
 
   '@types/pug@2.0.10':
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
@@ -1128,6 +1134,15 @@ packages:
   p-locate@5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
+
+  p5-svelte@3.1.2:
+    resolution: {integrity: sha512-lcfWh+cJ1/wRdIXHnjpYmDgj2h3TCy1QJVQnf/cBcFWS8CSkvyAN5F8u8H2U8qBUtZ4XaD3nd+1NoYUMHaMExQ==}
+    peerDependencies:
+      '@types/p5': ^1.4.2
+      p5: ^1.4.0
+
+  p5@1.11.3:
+    resolution: {integrity: sha512-5eiyuZ3Pvo6ucr3nr8AzD+qwpoleiIEF2a2HmiO6PJM1tnbD0LmLlckZyYGJATs0tdmRjc37Muh6KPS4d1FHHg==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -1907,6 +1922,8 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
+  '@types/p5@1.7.6': {}
+
   '@types/pug@2.0.10': {}
 
   '@typescript-eslint/eslint-plugin@8.23.0(@typescript-eslint/parser@8.23.0(eslint@9.20.0)(typescript@5.7.3))(eslint@9.20.0)(typescript@5.7.3)':
@@ -2574,6 +2591,13 @@ snapshots:
   p-locate@5.0.0:
     dependencies:
       p-limit: 3.1.0
+
+  p5-svelte@3.1.2(@types/p5@1.7.6)(p5@1.11.3):
+    dependencies:
+      '@types/p5': 1.7.6
+      p5: 1.11.3
+
+  p5@1.11.3: {}
 
   parent-module@1.0.1:
     dependencies:
