@@ -3,6 +3,16 @@
   import Blob from '$lib/components/Blob.svelte';
 
   const { messages, input, handleSubmit } = useChat({ maxSteps: 5 });
+  let noiseMultiplier = 1;
+
+  function handleInput(event: KeyboardEvent) {
+    // Increase noise when any key is pressed, gradually return to normal
+    noiseMultiplier = .02
+
+    setTimeout(() => {
+      noiseMultiplier = 1;
+    }, 100);
+  }
 
   function handleMessageParts(part : any) {
     switch (part.type) {
@@ -19,7 +29,7 @@
 </script>
 
 <main>
-  <Blob />
+  <Blob {noiseMultiplier} />
 
   <ul>
     {#each $messages as message}
@@ -36,7 +46,10 @@
     {/each}
   </ul>
   <form on:submit={handleSubmit}>
-    <input bind:value={$input} />
+    <input
+      bind:value={$input}
+      on:keydown={handleInput}
+    />
     <button type="submit">Send</button>
   </form>
 </main>
