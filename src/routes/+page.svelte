@@ -5,18 +5,38 @@
   const { messages, input, handleSubmit } = useChat({ maxSteps: 5 });
   let noiseMultiplier = 1;
 
-  function handleInput(event: KeyboardEvent) {
-    // Increase noise when any key is pressed, gradually return to normal
-    noiseMultiplier = .02
+  async function handleFormSubmit(event: SubmitEvent) {
+    await handleSubmit(event);  // Call the original handleSubmit
+
+    // noiseMultiplier = 0.02;  // Increase noise on submit
 
     setTimeout(() => {
-      noiseMultiplier = 1;
+      noiseMultiplier = 0.2;
     }, 100);
   }
 
   function handleMessageParts(part : any) {
     switch (part.type) {
       case "text":
+        const words = part.text.split(" ");
+        let currentIndex = 0;
+
+        // Start with high noise
+        noiseMultiplier = .15;
+
+        const animateNoise = () => {
+          if (currentIndex < words.length) {
+            // Lerp from current noise to target (0.04)
+            noiseMultiplier = noiseMultiplier * 0.5 + 0.15 * 0.6;
+            currentIndex++;
+            requestAnimationFrame(animateNoise);
+          } else {
+            // Ensure we end at exactly 0.04
+            noiseMultiplier = 0.15;
+          }
+        };
+
+        requestAnimationFrame(animateNoise);
         return part.text;
       case "reasoning":
       case "tool-invocation":
@@ -45,10 +65,9 @@
       </li>
     {/each}
   </ul>
-  <form on:submit={handleSubmit}>
+  <form on:submit={handleFormSubmit}>
     <input
       bind:value={$input}
-      on:keydown={handleInput}
     />
     <button type="submit">Send</button>
   </form>

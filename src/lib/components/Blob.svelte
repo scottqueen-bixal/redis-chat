@@ -4,9 +4,9 @@
   export let noiseMultiplier = 1;
   let currentNoiseMultiplier = noiseMultiplier;
 
-  const noiseMax = .2;
+  const noiseMax = .3;
   const blobSize = 300;
-  const rotationSpeed = 0.0095;
+  const rotationSpeed = 0.009;
 
   const sketch = (p5: any) => {
     let phase = 0;
@@ -51,7 +51,7 @@
           p5.translate(x, y, z);
           p5.noStroke(0);
           p5.fill(20, 200);
-          p5.sphere(300);
+          p5.sphere(80);
           p5.pop();
         }
         p5.pop();
