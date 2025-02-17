@@ -8,11 +8,20 @@
   async function handleFormSubmit(event: SubmitEvent) {
     await handleSubmit(event);  // Call the original handleSubmit
 
-    // noiseMultiplier = 0.02;  // Increase noise on submit
+    // Start with high noise on submit
+    noiseMultiplier = 1;
 
-    setTimeout(() => {
-      noiseMultiplier = 0.2;
-    }, 100);
+    // Smoothly animate to medium noise
+    const animateInitialNoise = () => {
+      if (noiseMultiplier > 0.2) {
+        noiseMultiplier = noiseMultiplier * 0.8; // Exponential decay
+        requestAnimationFrame(animateInitialNoise);
+      } else {
+        noiseMultiplier = 0.2;
+      }
+    };
+
+    requestAnimationFrame(animateInitialNoise);
   }
 
   function handleMessageParts(part : any) {
@@ -20,19 +29,18 @@
       case "text":
         const words = part.text.split(" ");
         let currentIndex = 0;
-
-        // Start with high noise
-        noiseMultiplier = .15;
+        let startNoise = noiseMultiplier;
+        const targetNoise = 0.15;
 
         const animateNoise = () => {
           if (currentIndex < words.length) {
-            // Lerp from current noise to target (0.04)
-            noiseMultiplier = noiseMultiplier * 0.5 + 0.15 * 0.6;
+            // Smooth interpolation between current and target noise
+            noiseMultiplier = startNoise + (targetNoise - startNoise) *
+              (currentIndex / words.length);
             currentIndex++;
             requestAnimationFrame(animateNoise);
           } else {
-            // Ensure we end at exactly 0.04
-            noiseMultiplier = 0.15;
+            noiseMultiplier = targetNoise;
           }
         };
 
@@ -48,6 +56,33 @@
 
 </script>
 
+<main>
+  <!-- <Blob {noiseMultiplier} /> -->
+
+  <ul>
+    {#each $messages as message}
+      <li>
+        <div class="message {message.role}">
+          {#if message.parts}
+            {#each message.parts as part (part.type)}
+              {handleMessageParts(part)}
+            {/each}
+          {:else}
+            {message.content}
+          {/if}
+        </div>
+      </li>
+    {/each}
+  </ul>
+  <form on:submit={handleFormSubmit}>
+    <input
+      bind:value={$input}
+      placeholder="Type a message..."
+    />
+    <button type="submit">Send</button>
+  </form>
+</main>
+
 <style>
   main {
     /* max-width: 800px; */
@@ -55,6 +90,7 @@
     padding: 1rem;
     background-color: #e0e5ec;
     min-height: 100vh;
+    font-family: monospace;
   }
 
   ul {
@@ -110,6 +146,7 @@
     box-shadow:
       inset 2px 2px 5px rgba(0, 0, 0, 0.2),
       inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+    font-family: monospace;
   }
 
   input:focus {
@@ -130,6 +167,7 @@
       3px 3px 6px rgba(0, 0, 0, 0.2),
       -3px -3px 6px rgba(255, 255, 255, 0.7);
     transition: all 0.2s ease;
+    font-family: monospace;
   }
 
   button:hover {
@@ -146,30 +184,3 @@
     transform: translateY(2px);
   }
 </style>
-
-<main>
-  <Blob {noiseMultiplier} />
-
-  <ul>
-    {#each $messages as message}
-      <li>
-        <div class="message {message.role}">
-          {#if message.parts}
-            {#each message.parts as part (part.type)}
-              {handleMessageParts(part)}
-            {/each}
-          {:else}
-            {message.content}
-          {/if}
-        </div>
-      </li>
-    {/each}
-  </ul>
-  <form on:submit={handleFormSubmit}>
-    <input
-      bind:value={$input}
-      placeholder="Type a message..."
-    />
-    <button type="submit">Send</button>
-  </form>
-</main>
