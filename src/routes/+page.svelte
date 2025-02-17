@@ -5,11 +5,22 @@
   const { messages, input, handleSubmit } = useChat({ maxSteps: 5 });
   let noiseMultiplier = 1;
 
+  let messageContainer: HTMLUListElement;
+
+  function scrollToBottom() {
+    if (messageContainer) {
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+  }
+
   async function handleFormSubmit(event: SubmitEvent) {
     await handleSubmit(event);  // Call the original handleSubmit
 
     // Start with high noise on submit
     noiseMultiplier = 1;
+
+    // Scroll to bottom after submitting
+    scrollToBottom();
 
     // Smoothly animate to medium noise
     const animateInitialNoise = () => {
@@ -25,6 +36,9 @@
   }
 
   function handleMessageParts(part : any) {
+    // Scroll after a small delay to ensure content is rendered
+    setTimeout(scrollToBottom, 100);
+
     switch (part.type) {
       case "text":
         const words = part.text.split(" ");
@@ -59,7 +73,7 @@
 <main>
   <!-- <Blob {noiseMultiplier} /> -->
 
-  <ul>
+  <ul bind:this={messageContainer}>
     {#each $messages as message}
       <li>
         <div class="message {message.role}">
@@ -85,18 +99,23 @@
 
 <style>
   main {
-    /* max-width: 800px; */
     margin: 0 auto;
     padding: 1rem;
     background-color: #e0e5ec;
     min-height: 100vh;
     font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
 
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 1rem;
   }
 
   li {
@@ -110,6 +129,7 @@
     padding: 1rem 1.2rem;
     border-radius: 1rem;
     white-space: pre-wrap;
+    margin: 0 1rem;
     box-shadow:
       3px 3px 6px rgba(0, 0, 0, 0.2),
       -3px -3px 6px rgba(255, 255, 255, 0.7);
@@ -120,6 +140,7 @@
     background-color: #e0e5ec;
     color: #007AFF;
     border-bottom-right-radius: 0.2rem;
+    margin-right: 0.5rem;
   }
 
   .assistant {
@@ -127,13 +148,15 @@
     background-color: #e0e5ec;
     color: #2c3e50;
     border-bottom-left-radius: 0.2rem;
+    margin-left: 0.5rem;
   }
 
   form {
-    margin-top: 1rem;
+    margin-top: auto;
     display: flex;
     gap: 0.8rem;
     padding: 1rem;
+    background-color: #e0e5ec;
   }
 
   input {
