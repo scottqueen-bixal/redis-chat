@@ -48,26 +48,127 @@
 
 </script>
 
+<style>
+  main {
+    /* max-width: 800px; */
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #e0e5ec;
+    min-height: 100vh;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message {
+    max-width: 80%;
+    padding: 1rem 1.2rem;
+    border-radius: 1rem;
+    white-space: pre-wrap;
+    box-shadow:
+      3px 3px 6px rgba(0, 0, 0, 0.2),
+      -3px -3px 6px rgba(255, 255, 255, 0.7);
+  }
+
+  .user {
+    align-self: flex-end;
+    background-color: #e0e5ec;
+    color: #007AFF;
+    border-bottom-right-radius: 0.2rem;
+  }
+
+  .assistant {
+    align-self: flex-start;
+    background-color: #e0e5ec;
+    color: #2c3e50;
+    border-bottom-left-radius: 0.2rem;
+  }
+
+  form {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  input {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 0.8rem;
+    background: #e0e5ec;
+    color: #2c3e50;
+    box-shadow:
+      inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+      inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+  }
+
+  input:focus {
+    outline: none;
+    box-shadow:
+      inset 3px 3px 6px rgba(0, 0, 0, 0.2),
+      inset -3px -3px 6px rgba(255, 255, 255, 0.7);
+  }
+
+  button {
+    padding: 0.8rem 1.5rem;
+    background-color: #e0e5ec;
+    color: #007AFF;
+    border: none;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    box-shadow:
+      3px 3px 6px rgba(0, 0, 0, 0.2),
+      -3px -3px 6px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    box-shadow:
+      2px 2px 4px rgba(0, 0, 0, 0.2),
+      -2px -2px 4px rgba(255, 255, 255, 0.7);
+    transform: translateY(1px);
+  }
+
+  button:active {
+    box-shadow:
+      inset 2px 2px 4px rgba(0, 0, 0, 0.2),
+      inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+    transform: translateY(2px);
+  }
+</style>
+
 <main>
   <Blob {noiseMultiplier} />
 
   <ul>
     {#each $messages as message}
       <li>
-        {message.role}:
-        {#if message.parts}
-          {#each message.parts as part (part.type)}
-            {handleMessageParts(part)}
-          {/each}
-        {:else}
-          {message.content}
-        {/if}
+        <div class="message {message.role}">
+          {#if message.parts}
+            {#each message.parts as part (part.type)}
+              {handleMessageParts(part)}
+            {/each}
+          {:else}
+            {message.content}
+          {/if}
+        </div>
       </li>
     {/each}
   </ul>
   <form on:submit={handleFormSubmit}>
     <input
       bind:value={$input}
+      placeholder="Type a message..."
     />
     <button type="submit">Send</button>
   </form>
