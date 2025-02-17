@@ -134,17 +134,26 @@
     position: relative;
     max-width: 80%;
     padding: 2rem;
-    border-radius: 1rem;
     white-space: pre-wrap;
     margin: 2rem;
+    line-height: 2;
+  }
+
+  .assistant {
+    align-self: flex-start;
+    line-height: 2;
+    background-color: #e0e5ec;
+    color: #2c3e50;
+    border-radius: 1rem;
+    border-bottom-left-radius: 0.2rem;
+    margin-left: 0.5rem;
     box-shadow:
       11px 4px 20px 0px rgb(0 0 0 / 5%),
       -7px -9px 20px 0px rgb(255 255 255 / 43%);
     transition: all 0.2s ease;
-    line-height: 1.6;
   }
 
-  .message:hover {
+  .assistant:hover {
     box-shadow:
       2px 2px 4px rgb(0 0 0 / 3%),
       -2px -2px 4px rgb(255 255 255 / 29%);
@@ -153,18 +162,9 @@
 
   .user {
     align-self: flex-end;
-    background-color: #e0e5ec;
-    color: #007AFF;
-    border-bottom-right-radius: 0.2rem;
     margin-right: 0.5rem;
-  }
-
-  .assistant {
-    align-self: flex-start;
-    background-color: #e0e5ec;
-    color: #2c3e50;
-    border-bottom-left-radius: 0.2rem;
-    margin-left: 0.5rem;
+    line-height: 2;
+    color: #6c6c6c;
   }
 
   form {
