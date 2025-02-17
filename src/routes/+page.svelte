@@ -72,9 +72,3 @@
     <button type="submit">Send</button>
   </form>
 </main>
-
-<style>
-  main {
-    padding: 2rem;
-  }
-</style>
