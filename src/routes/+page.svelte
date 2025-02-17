@@ -74,6 +74,9 @@
     {#each $messages as message}
       <li>
         <div class="message {message.role}">
+          {#if message.role === 'assistant'}
+            <span class="role-label assistant-label">assistant</span>
+          {/if}
           {#if message.parts}
             {#each message.parts as part (part.type)}
               {handleMessageParts(part)}
@@ -100,6 +103,7 @@
     background-color: #e0e5ec;
     min-height: 100vh;
     font-family: monospace;
+    line-height: 2.1;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -127,8 +131,9 @@
   }
 
   .message {
+    position: relative;
     max-width: 80%;
-    padding: 1.6rem;
+    padding: 2rem;
     border-radius: 1rem;
     white-space: pre-wrap;
     margin: 2rem;
@@ -136,6 +141,7 @@
       11px 4px 20px 0px rgb(0 0 0 / 5%),
       -7px -9px 20px 0px rgb(255 255 255 / 43%);
     transition: all 0.2s ease;
+    line-height: 1.6;
   }
 
   .message:hover {
@@ -181,6 +187,7 @@
       11px 4px 20px 0px rgb(0 0 0 / 5%),
       -7px -9px 20px 0px rgb(255 255 255 / 43%);
     font-family: monospace;
+    line-height: 1.6;
     transition: all 0.2s ease;
   }
 
@@ -210,6 +217,7 @@
       -7px -9px 20px 0px rgb(255 255 255 / 43%);
     transition: all 0.2s ease;
     font-family: monospace;
+    line-height: 1.6;
   }
 
   button:hover {
@@ -224,5 +232,17 @@
       inset 2px 2px 4px rgba(0, 0, 0, 0.2),
       inset -2px -2px 4px rgba(255, 255, 255, 0.7);
     transform: translateY(2px);
+  }
+
+  .role-label {
+    position: absolute;
+    top: -2.5rem;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .assistant-label {
+    left: 1rem;
+    color: #2c3e50;
   }
 </style>
