@@ -1,6 +1,5 @@
 <script lang="ts">
   import { useChat } from '@ai-sdk/svelte';
-  import Blob from '$lib/components/Blob.svelte';
 
   const { messages, input, handleSubmit } = useChat({ maxSteps: 5 });
   let noiseMultiplier = 1;
@@ -71,7 +70,6 @@
 </script>
 
 <main>
-  <!-- <Blob {noiseMultiplier} /> -->
 
   <ul bind:this={messageContainer}>
     {#each $messages as message}
