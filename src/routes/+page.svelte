@@ -135,6 +135,14 @@
     box-shadow:
       11px 4px 20px 0px rgb(0 0 0 / 5%),
       -7px -9px 20px 0px rgb(255 255 255 / 43%);
+    transition: all 0.2s ease;
+  }
+
+  .message:hover {
+    box-shadow:
+      2px 2px 4px rgb(0 0 0 / 3%),
+      -2px -2px 4px rgb(255 255 255 / 29%);
+    transform: translateY(1px);
   }
 
   .user {
@@ -173,6 +181,14 @@
       11px 4px 20px 0px rgb(0 0 0 / 5%),
       -7px -9px 20px 0px rgb(255 255 255 / 43%);
     font-family: monospace;
+    transition: all 0.2s ease;
+  }
+
+  input:hover {
+    box-shadow:
+      2px 2px 4px rgb(0 0 0 / 3%),
+      -2px -2px 4px rgb(255 255 255 / 29%);
+    transform: translateY(1px);
   }
 
   input:focus {
@@ -198,8 +214,8 @@
 
   button:hover {
     box-shadow:
-      2px 2px 4px rgba(0, 0, 0, 0.2),
-      -2px -2px 4px rgba(255, 255, 255, 0.7);
+      2px 2px 4px rgb(0 0 0 / 3%),
+      -2px -2px 4px rgb(255 255 255 / 29%);
     transform: translateY(1px);
   }
 
