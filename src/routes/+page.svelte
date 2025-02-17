@@ -70,8 +70,7 @@
 </script>
 
 <main>
-
-  <ul bind:this={messageContainer}>
+  <ul class="messages-container" bind:this={messageContainer}>
     {#each $messages as message}
       <li>
         <div class="message {message.role}">
@@ -98,13 +97,18 @@
 <style>
   main {
     margin: 0 auto;
-    padding: 1rem;
     background-color: #e0e5ec;
     min-height: 100vh;
     font-family: monospace;
     display: flex;
     flex-direction: column;
     height: 100vh;
+  }
+
+  .messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10rem 2rem;
   }
 
   ul {
@@ -124,13 +128,13 @@
 
   .message {
     max-width: 80%;
-    padding: 1rem 1.2rem;
+    padding: 1.6rem;
     border-radius: 1rem;
     white-space: pre-wrap;
-    margin: 0 1rem;
+    margin: 2rem;
     box-shadow:
-      3px 3px 6px rgba(0, 0, 0, 0.2),
-      -3px -3px 6px rgba(255, 255, 255, 0.7);
+      11px 4px 20px 0px rgb(0 0 0 / 5%),
+      -7px -9px 20px 0px rgb(255 255 255 / 43%);
   }
 
   .user {
@@ -160,21 +164,22 @@
   input {
     flex: 1;
     padding: 0.8rem 1.2rem;
+    height: 1.2rem;
     border: none;
     border-radius: 0.8rem;
     background: #e0e5ec;
     color: #2c3e50;
     box-shadow:
-      inset 2px 2px 5px rgba(0, 0, 0, 0.2),
-      inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+      11px 4px 20px 0px rgb(0 0 0 / 5%),
+      -7px -9px 20px 0px rgb(255 255 255 / 43%);
     font-family: monospace;
   }
 
   input:focus {
     outline: none;
     box-shadow:
-      inset 3px 3px 6px rgba(0, 0, 0, 0.2),
-      inset -3px -3px 6px rgba(255, 255, 255, 0.7);
+      inset 3px 3px 6px rgb(0 0 0 / 5%),
+      inset -3px -3px 6px rgb(255 255 255 / 43%);
   }
 
   button {
@@ -185,8 +190,8 @@
     border-radius: 0.8rem;
     cursor: pointer;
     box-shadow:
-      3px 3px 6px rgba(0, 0, 0, 0.2),
-      -3px -3px 6px rgba(255, 255, 255, 0.7);
+      11px 4px 20px 0px rgb(0 0 0 / 5%),
+      -7px -9px 20px 0px rgb(255 255 255 / 43%);
     transition: all 0.2s ease;
     font-family: monospace;
   }
